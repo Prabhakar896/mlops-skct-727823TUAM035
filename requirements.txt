@@ -1,0 +1,20 @@
+# requirements.txt for MLOps project - Prabhakar 727823TUAM035
+
+# Data manipulation
+pandas==1.5.3
+numpy==1.24.3
+
+# Machine Learning
+scikit-learn==1.2.2
+joblib==1.2.0
+
+# MLflow for experiment tracking
+mlflow==2.7.0
+
+# For Azure ML Pipeline submission
+azure-ai-ml==1.13.0
+azure-identity==1.14.0
+
+# Visualization (for EDA notebook)
+matplotlib==3.7.1
+seaborn==0.12.2

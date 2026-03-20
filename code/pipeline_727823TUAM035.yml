@@ -1,0 +1,55 @@
+#PRABHAKAR A 727823TUAM035
+$schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
+type: pipeline
+
+experiment_name: mlops-exp
+
+inputs:
+  input_data:
+    type: uri_file
+    path: azureml:pjme-data@latest
+
+jobs:
+
+  data_prep:
+    type: command
+    code: ./code
+    inputs:
+      input_data: ${{parent.inputs.input_data}}   # <-- updated syntax
+    command: >
+      python data_prep.py
+      --input_data ${{inputs.input_data}}
+      --output_data ${{outputs.output_data}}
+    environment: azureml:AzureML-sklearn-1.0-ubuntu20.04-py38-cpu@latest
+    compute: azureml:cpu-cluster
+    outputs:
+      output_data:
+        type: uri_folder
+
+  train:
+    type: command
+    code: ./code
+    inputs:
+      input_data: ${{parent.jobs.data_prep.outputs.output_data}}
+    command: >
+      python train.py
+      --input_data ${{inputs.input_data}}
+      --model_output ${{outputs.model_output}}
+    environment: azureml:AzureML-sklearn-1.0-ubuntu20.04-py38-cpu@latest
+    compute: azureml:cpu-cluster
+    outputs:
+      model_output:
+        type: uri_folder
+
+  evaluate:
+    type: command
+    code: ./code
+    inputs:
+      input_data: ${{parent.jobs.data_prep.outputs.output_data}}
+      model_path: ${{parent.jobs.train.outputs.model_output}}
+    command: >
+      python evaluate.py
+      --input_data ${{inputs.input_data}}
+      --model_path ${{inputs.model_path}}
+    environment: azureml:AzureML-sklearn-1.0-ubuntu20.04-py38-cpu@latest
+    compute: azureml:cpu-cluster
