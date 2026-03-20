@@ -1,0 +1,8 @@
+Name: Prabhakar Anandan
+Roll Number: 727823TUAM035
+MLflow Experiment Name: SKCT_727823TUAM035_pjm_load
+Best MLflow Run ID: <Insert Best Run ID here>
+Best Metric Value (R²): <Insert Best R² value here>
+Azure Pipeline Run ID: kind_soccer_hmtqjvk0cl
+GitHub URL: https://github.com/Prabhakar896/mlops-skct-727823TUAM035
+Total Marks (optional): 
