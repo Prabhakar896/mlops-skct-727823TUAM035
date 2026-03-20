@@ -32,3 +32,42 @@ This project demonstrates a full MLOps workflow including:
 ```bash
 git clone https://github.com/Prabhakar8956/mlops-skct-727823TUAM035.git
 cd mlops-skct-727823TUAM035
+
+### **2. Create a Virtual Environment**
+     python -m venv venv
+# Activate the virtual environment
+# Windows:
+venv\Scripts\activate
+# Linux/macOS:
+source venv/bin/activate
+3. Install Dependencies
+pip install -r requirements.txt
+4. Run MLflow Experiments Locally
+
+Make sure your dataset is in ./data/ folder
+
+python code/training.py --input_data ./data --model_output ./outputs
+
+This will run 12+ experiments, log metrics to MLflow, and save the best model
+
+5. Submit Azure ML Pipeline
+
+Make sure you are logged in to Azure CLI and workspace is configured
+
+az ml job create --file pipeline_727823TUAM035.yml -g Prabha -w mlops-SKCT-727823TUAM035 --stream
+6. Check Results
+
+MLflow UI: metrics, tags, and artifacts for all runs
+
+Azure ML Portal: check pipeline run and outputs
+
+Screenshots saved in /screenshots/ folder
+
+Project Structure
+/code/                  ← Python scripts for pipeline stages
+/notebooks/             ← EDA notebook
+/screenshots/           ← MLflow and Azure portal screenshots
+/report/                ← PDF report
+/pipeline_727823TUAM035.yml  ← Azure ML pipeline YAML
+/requirements.txt       ← Project dependencies
+README.md               ← This file
